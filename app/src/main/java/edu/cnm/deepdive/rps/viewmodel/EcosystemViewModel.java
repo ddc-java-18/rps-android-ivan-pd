@@ -69,11 +69,15 @@ public class EcosystemViewModel extends ViewModel implements DefaultLifecycleObs
   private final String toroidalTopologyKey;
   private final boolean toroidalTopologyDefault;
 
-  // TODO Define final String and int fields for the run speed key and the run speed default,
+  // Done Define final String and int fields for the run speed key and the run speed default,
   //  respectively.
+  private final String runSpeedKey;
+  private final int runSpeedDefault;
 
-  // TODO Define final String and int fields for the swap likelihood key and the swap likelihood
+  // Done Define final String and int fields for the swap likelihood key and the swap likelihood
   //  default, respectively.
+  private final String swapLikelihoodKey;
+  private final int swapLikelihoodDefault;
 
   private int currentTerrainSize;
 
@@ -102,13 +106,17 @@ public class EcosystemViewModel extends ViewModel implements DefaultLifecycleObs
     toroidalTopologyKey = res.getString(R.string.toroidal_topology_key);
     toroidalTopologyDefault = res.getBoolean(R.bool.toroidal_topology_default);
 
-    // TODO Assign values to the run speed key and run speed default fields. See
+    // DONE Assign values to the run speed key and run speed default fields. See
     //  res/xml/settings.xml for the resources involved; see the above code used to assign values to
     //  the key and default fields for an illustration of the technique.
+    runSpeedKey = res.getString(R.string.run_speed_key);
+    runSpeedDefault = res.getInteger(R.integer.run_speed_default);
 
     // TODO Assign values to the swap likelihood key and swap likelihood default fields. See
     //  res/xml/settings.xml for the resources involved; see the above code used to assign values to
     //    //  the key and default fields for an illustration of the technique.
+    swapLikelihoodKey = res.getString(R.string.swap_likelihood_key);
+    swapLikelihoodDefault = res.getInteger(R.integer.swap_likelihood_default);
 
     create();
   }
@@ -133,17 +141,19 @@ public class EcosystemViewModel extends ViewModel implements DefaultLifecycleObs
    */
   public void run() {
 
-    // TODO Declare an int local variable for the run speed; then, using the run speed key and run
+    // DONE Declare an int local variable for the run speed; then, using the run speed key and run
     //  speed default value fields (as outlined in the to-do items, above), obtain the run speed
     //  value from preferencesRepository, using the technique illustrated in the create() method
     //  (above).
+    int runSpeed = preferencesRepository.get(runSpeedKey, runSpeedDefault);
 
-    // TODO Declare an int local variable for the swap likelihood; then, using the swap likelihood
+    // DONE Declare an int local variable for the swap likelihood; then, using the swap likelihood
     //  key and swap likelihood default value fields (as outlined in the to-do items, above), obtain
     //  the swap likelihood value from preferencesRepository, using the technique illustrated in the
     //  create() method (above).
+    int swapLikelihood = preferencesRepository.get(swapLikelihoodKey, swapLikelihoodDefault);
 
-    // TODO In the ecosystemRepository.run() method invocation below, specify the argument for the
+    // DONE In the ecosystemRepository.run() method invocation below, specify the argument for the
     //  iterationsPerBatch parameter (currently 100) as a value computed from the run speed
     //  (obtained from the preferences earlier in this method) and the current terrain size.
     //  ---
@@ -164,8 +174,9 @@ public class EcosystemViewModel extends ViewModel implements DefaultLifecycleObs
     //  declare an int variable runSpeed, assigning it a value from the preferences, the first
     //  argument in the ecosystemRepository.run() method invocation (below) should be computed as
     //  (runSpeed * currentTerrainSize * currentTerrainSize / 25).
+    int iterationsPerTick = (runSpeed * currentTerrainSize * currentTerrainSize / 25);
 
-    // TODO In the ecosystemRepository.run() method invocation below, specify the value of the
+    // DONE In the ecosystemRepository.run() method invocation below, specify the value of the
     //  swapProbability parameter (currently 0) with a value computed from the swap likelihood
     //  (obtained from preferences earlier in this method).
     //  ---
@@ -177,8 +188,9 @@ public class EcosystemViewModel extends ViewModel implements DefaultLifecycleObs
     //  an int variable swapLikelihood, assigning it a value from the preferences, the second
     //  argument in the ecosystemRepository.run() method invocation (below) should be computed as
     //  (swapLikelihood / 100f).
+    float swapProbability = swapLikelihood / 100f;
 
-    execute(ecosystemRepository.run(100, 0, TICK_MILLISECONDS), (ignored) -> {}, () -> {});
+    execute(ecosystemRepository.run(iterationsPerTick, swapProbability, TICK_MILLISECONDS), (ignored) -> {}, () -> {});
   }
 
   /**
