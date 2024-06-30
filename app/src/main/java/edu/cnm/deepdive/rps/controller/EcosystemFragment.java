@@ -35,6 +35,9 @@ import dagger.hilt.android.AndroidEntryPoint;
 import edu.cnm.deepdive.rps.R;
 import edu.cnm.deepdive.rps.databinding.FragmentEcosystemBinding;
 import edu.cnm.deepdive.rps.viewmodel.EcosystemViewModel;
+import java.util.Objects;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 /**
  * Presents a user interface comprising menu items in the action bar (and the overflow menu), as
@@ -162,12 +165,23 @@ public class EcosystemFragment extends Fragment implements MenuProvider {
     viewModel.getCurrentBreedCount()
         .observe(owner, (numBreeds) -> binding.breedCount.setText(String.valueOf(numBreeds)));
 
-    // TODO Using the same viewModel as is used in the operations above, get a reference to the
+    // Done Using the same viewModel as is used in the operations above, get a reference to the
     //  LiveData<int[]> containing the current population sizes of all of the breeds in the
     //  ecosystem (see the getPopulations() method in EcosystemViewModel); observe that LiveData,
     //  and pass the value received by the observer (after any necessary conversion from int[] to
     //  one or more Strings) to the corresponding text widgets in the fragment_ecosystem layout, to
     //  display the population counts.
+    viewModel
+        .getPopulations()
+        .observe(owner, (populations) -> {
+          String result = IntStream.of(populations)
+              .mapToObj(Objects::toString)
+              .collect(Collectors.joining(",\n"));
+
+          binding.populationSize.setText(result);
+        });
+
+
   }
 
 }

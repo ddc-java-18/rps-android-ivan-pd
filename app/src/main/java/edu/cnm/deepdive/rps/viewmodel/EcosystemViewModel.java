@@ -112,7 +112,7 @@ public class EcosystemViewModel extends ViewModel implements DefaultLifecycleObs
     runSpeedKey = res.getString(R.string.run_speed_key);
     runSpeedDefault = res.getInteger(R.integer.run_speed_default);
 
-    // TODO Assign values to the swap likelihood key and swap likelihood default fields. See
+    // Done Assign values to the swap likelihood key and swap likelihood default fields. See
     //  res/xml/settings.xml for the resources involved; see the above code used to assign values to
     //    //  the key and default fields for an illustration of the technique.
     swapLikelihoodKey = res.getString(R.string.swap_likelihood_key);
