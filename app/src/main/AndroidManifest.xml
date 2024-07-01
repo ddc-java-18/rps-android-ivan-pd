@@ -18,11 +18,6 @@
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools">
 
-  <!--
-      TODO Create a new launcher icon suitable for this app. Then, change the android:icon and
-       android:roundIcon attribute values (below) to refer to the new icon.
-  -->
-
   <application
     android:allowBackup="false"
     android:icon="@mipmap/ic_rps_launcher"
