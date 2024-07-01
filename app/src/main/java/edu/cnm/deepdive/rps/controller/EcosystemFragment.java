@@ -35,6 +35,7 @@ import dagger.hilt.android.AndroidEntryPoint;
 import edu.cnm.deepdive.rps.R;
 import edu.cnm.deepdive.rps.databinding.FragmentEcosystemBinding;
 import edu.cnm.deepdive.rps.viewmodel.EcosystemViewModel;
+import java.util.Arrays;
 import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -155,7 +156,7 @@ public class EcosystemFragment extends Fragment implements MenuProvider {
     viewModel
         .getIterationCount()
         .observe(owner, (iterations) ->
-          binding.iterationCount.setText(getString(R.string.iteration_count_format, iterations)));
+          binding.iterationCount.setText(getString(R.string.large_number_format, iterations)));
 
     // DONE Using the same viewModel as is used in the operations above, get a reference to the
     //  LiveData<Integer> containing the number of extant (surviving) breeds in the ecosystem
@@ -174,13 +175,12 @@ public class EcosystemFragment extends Fragment implements MenuProvider {
     viewModel
         .getPopulations()
         .observe(owner, (populations) -> {
-          String result = IntStream.of(populations)
-              .mapToObj(Objects::toString)
-              .collect(Collectors.joining(",\n"));
+          String populationsDisplay = Arrays.stream(populations)
+              .mapToObj((population) -> getString(R.string.large_number_format, population))
+              .collect(Collectors.joining(System.lineSeparator()));
 
-          binding.populationSize.setText(result);
+          binding.populationSize.setText(populationsDisplay);
         });
-
 
   }
 

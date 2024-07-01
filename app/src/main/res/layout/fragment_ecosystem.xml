@@ -74,7 +74,7 @@
     android:layout_margin="@dimen/half_static_spacing"
     app:hintEnabled="true"
     app:layout_constraintStart_toEndOf="@id/iteration_count_layout"
-    app:layout_constraintEnd_toStartOf="@id/population_size_layout"
+    app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintTop_toBottomOf="@id/terrain"
     app:layout_constraintWidth_max="@dimen/text_widget_max_width">
 
@@ -98,21 +98,23 @@
        value in each line.
   -->
   <com.google.android.material.textfield.TextInputLayout
-    android:id="@+id/population_size_layout"
+    android:id="@+id/population_sizes_layout"
     android:layout_width="0dp"
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/half_static_spacing"
     app:hintEnabled="true"
-    app:layout_constraintStart_toEndOf="@id/breed_count_layout"
+    app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintTop_toBottomOf="@id/terrain"
-    app:layout_constraintWidth_max="@dimen/text_widget_max_width">
+    app:layout_constraintTop_toBottomOf="@id/iteration_count_layout"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintWidth_max="@dimen/text_widget_max_width"
+    app:layout_constrainedHeight="true">
 
     <com.google.android.material.textfield.TextInputEditText
       android:id="@+id/population_size"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:hint="@string/population_size_label"
+      android:hint="@string/population_sizes_label"
       android:inputType="none"
       android:focusable="false"
       android:textAlignment="textEnd"

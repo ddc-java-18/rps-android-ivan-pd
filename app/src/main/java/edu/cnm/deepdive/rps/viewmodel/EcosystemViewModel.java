@@ -121,7 +121,7 @@ public class EcosystemViewModel extends ViewModel implements DefaultLifecycleObs
     create();
   }
 
-  /**
+   /**
    * Creates a new instance of the intransitive ecosystem simulation, using the number of breeds,
    * terrain size, and topology specified in the corresponding property values stored in
    * {@link android.content.SharedPreferences}.
